@@ -5,7 +5,7 @@ import pandas as pd
 import nltk
 
 
-# OneStopEnglishCorpus Related Functions
+# Using dataset of OneStopEnglishCorpus from the below github link and cleaning the data.
 
 # Main directory for OneStopEnglishCorpus from https://github.com/nishkalavallabhi/OneStopEnglishCorpus
 main_path = '../OneStopEnglishCorpus/Texts-SeparatedByReadingLevel/'
@@ -17,16 +17,7 @@ def get_docs_one_stop(document_id=True):
     """Returns a list of sentences of the parsed documents and the associated level as a tuple
     with an option to include an original document_id tag to track the original document.
     
-    Parameters
-    ----------
-    None (Optional doc_id): bol
 
-    Returns
-    -------
-    A tuple 
-    (1) A of a list of sentences of the parsed documents (text) from OneStopEnglishCorpus
-    (2) Level of the text (Ele, Int, or Adv)
-    (3) (Optional) original document_id tag 
     """
     docs = []
     doc_id = 0
@@ -55,14 +46,7 @@ def split_docs_one_stop(document_tuple, document_id=True):
     words per sentence, the total number of sentences, the total words in the segment, the number of words 
     in each sentence segment, and the associated level.
     
-    Parameters
-    ----------
-    Document info of OneStopEnlishCorpus: tuple
 
-    Returns
-    -------
-    A tuple for dataframe creation.
-    (See Info Above)
     """
     seperated_doc = []
     for doc in document_tuple:
@@ -87,13 +71,7 @@ def get_one_stop_dataframe(levels=True, document_id=True):
     """Returns the OneStopEnglishCorpus Dataframe. If levels = False, will return numberic levels:
     Ele = 0, Int =1, Adv = 2
     
-    Parameters
-    ----------
-    None
-
-    Returns
-    -------
-    A Pandas Data Frame  
+ 
     """
     records = split_docs_one_stop(get_docs_one_stop())
     
@@ -145,17 +123,7 @@ def process_directory(cefr=True):
     Default level rating is returned in CEFR format. If set to False, will return an integer level from 0 to 5 
     for multinomial-classification.
 
-    Parameters
-    ----------
-    Main Directory Path: str
-    File names in matching CEFR order: list of str
-    Cefr rating format: bool (Default to True)
 
-    Returns
-    -------
-    (1) A list of each cleaned document as a string for data frame building
-    (2) A list of of each readings level
-    (3) A list of the lengths of the first line in each document
     """
     documents = []
     document_list = []
@@ -276,18 +244,7 @@ def parse_directory(cefr=True):
     Document parsing for CEFR Reading Level Files from KET to CPE. Default level rating is returned in CEFR format.
     If set to False, will return an integer level from 0 to 5 for multinomial-classification.
 
-    Parameters
-    ----------
-    Main Directory Path: str
-    File names in matching CEFR order: list of str
-    Cefr rating format: bool (Default to True)
 
-    Returns
-    -------
-    (1) A list of lists of each reading by sentence
-    (2) A list of each reading as a string
-    (3) A list of of each readings level
-    (4) A string of all the words in the document
     """
     documents = []
     documents_list = []
@@ -341,16 +298,5 @@ def cefr_to_data_frame(col1, col2, col1_name='documents', col2_name='cefr_level'
     """Returns Pandas dataframe of the CEFR reading data.
 
     Expects column 1 to be the reading data, and column 2 to be the level ratings for each reading.
-
-    Parameters
-    ----------
-    List or Series for the first column: list or numpy array
-    List or Series for the second colums: list or numpy array
-    Name of first column: str (Default name is "documents")
-    Name of second column: str (Default name is "cefr_level")
-
-    Returns
-    -------
-    Pandas Data Frame
     """
     return pd.DataFrame({col1_name: col1, col2_name: col2})

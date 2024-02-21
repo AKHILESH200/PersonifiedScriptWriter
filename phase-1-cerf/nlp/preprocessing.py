@@ -50,17 +50,6 @@ def get_avg_word_length(df, col_name, nltk_tokenizer=True):
 def get_sentences(df, text_col, target_col):
     """Returns tuple of each document split by sentence with additional info:
     (sentence, number of words, average length of words, cefr_level, document id)
-
-    Parameters
-    ----------
-    A dataframe: Pandas dataframe
-    Name of text or document column: str
-    Name of target column: str
-
-    Returns
-    -------
-    A tuple
-    (See Info Above)
     """
     sentences = []
     for row in df.itertuples():
@@ -193,16 +182,7 @@ def get_word_level_dictonaries(df, col_name, vocab_dict, adv_vocab_dict):
 
 
         
-#     for row in df.itertuples():
-#         text = nltk.sent_tokenize(getattr(row, text_col).strip())
-#         level = getattr(row, target_col)
-#         doc = getattr(row, 'Index')
-#         for sentence in text:
-#             words = remove_punct(sentence).split()
-#             avg_len_words = sum(len(word) for word in words)/len(words)
-#             sentences.append((sentence, len(words), round(avg_len_words, 2) , level, doc))
 
-#     return sentences
 
 def process_sample(text, list_of_keys, vocab_dict, adv_vocab_dict):
     level_dict = {'A1': 0, 'A2': 0, 'B1': 0, 'B2': 0, 'C1': 0, 'C2': 0}
@@ -329,10 +309,7 @@ def get_tokenized_word_stats(df, col_name):
     
     return tokenized_word_stats(tokenize_words(tokenize_sentences(df, col_name)))
 
-# def get_tokenized_word_stats_treebank(df, col_name):
-#     """Returns Total number of Words, Total Number of Sentences, Average Sentence Length, Maximum and Minimum Sentence lengths"""
-    
-#     return tokenized_word_stats(tokenize_words(tokenize_sentences(df, col_name)))
+
 
 
 def get_tokenized_words_treebank(df, col_name):
@@ -384,10 +361,7 @@ def remove_newline(text):
 from nltk.tokenize import word_tokenize
 
 def remove_punct(text):
-    
-#     new_text = word_tokenize(text)
-#     new_text = list(filter(lambda token: token not in string.punctuation, new_text))
-#     text = " ".join([word for word in new_text])    
+        
     tokenizer = nltk.RegexpTokenizer(r"\w+")
     new_text = tokenizer.tokenize(text)
     text = " ".join([word for word in new_text])
@@ -477,17 +451,7 @@ def preprocess(df, col_name, punct=True, lower=True, stop_words=True, noise=True
 
 
 def preprocess_all(df, col_name, punct=True, lower=True, stop_words=True, noise=True):
-    """Returns new dataframe with all the preprocessing from the preprocess function with to lemmitizing and stemming.
-
-    Parameters
-    ----------
-    A dataframe: Pandas dataframe
-    Name of the column: str
-
-    Returns
-    -------
-    A new data frame with fully, preprocessed column
-    """
+    """Returns new dataframe with all the preprocessing from the preprocess function with to lemmitizing and stemming."""
     dataframe = df.copy()
     new_col_name = col_name + "_clean"
     dataframe[new_col_name] = preprocess(df, col_name, punct, lower, stop_words, noise)
