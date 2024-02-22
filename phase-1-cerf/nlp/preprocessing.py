@@ -424,17 +424,6 @@ def replace_apostrophe(text):
 def preprocess(df, col_name, punct=True, lower=True, stop_words=True, noise=True):
     """Returns a new column for a dataframe with all following preprocessed steps: removes punctuation based on python
     string, converts all characters to lower case, and removes all the stopwords based on nltk's stopwords.
-    
-    Option to toggle off any of the three types of preprocessing. All punct, lower, and stop_words defaulted to True.
-
-    Parameters
-    ----------
-    A dataframe: Pandas dataframe
-    Name of the column: str
-
-    Returns
-    -------
-    A Pandas series for a new column in a data frame
     """
     column = df[col_name]
     
@@ -562,15 +551,6 @@ def get_cefr_word_dictionary(path='data/cefrj-vocabulary-profile-1.5.csv'):
 
 def simple_clean_punctuation(df, col_name, new_line=False):
     """Returns Pandas dataframe with punctuation removed from selected column, with the option to remove all new lines.
-
-    Parameters
-    ----------
-    A dataframe: Pandas dataframe
-    Name of the column: str
-
-    Returns
-    -------
-    A new Pandas Data Frame
     """
     df_new = df.copy()
     col = df_new[col_name]
