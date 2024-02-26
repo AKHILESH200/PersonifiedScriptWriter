@@ -414,7 +414,7 @@ def stemmed(text):
     
     return final_text
 
-# Deprecated: this functionality was used in original text cleaning
+
 def replace_apostrophe(text):
     text = re.sub("`|’", "'", text)
     
